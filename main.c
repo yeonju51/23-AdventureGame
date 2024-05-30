@@ -1,47 +1,12 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
-#include <playerinfo.h>
-int diece ();
-int monsterEncounter();
-int statsCheck (int playerStats, int diceRoll);
-int main(int argc, char **argv)
-{
-    /*
-*   Copyright (C) 2016 Oscar Ydrefelt
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License version 3 as published by
-*   the Free Software Foundation.
+#include "tools.c"
 
-*   This program is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-* 
-*   I wrote this program because I was curious about C and I wanted
-*   to try it out and It was written mostly by trading sleep for coding.
-*   I am certain that there is tons of ways this code could be better and
-*   if I have the time and continue to go down the path of C I might come
-*   back to it.
-*/
+int main(int argc, char **argv) {
 
+    welcome();
 
-   int rollDice;
-   int trapCheck;
-   struct playerInfo player1;
-   char title[60] = "Welcome to this text based adventure game";
-   printf("  %55.55s \n ", title) ; 
-   char * monster[4] = {"orc","goblin","Mountain troll","swarm of bats"};
-   char * playerValues[3] ={"strength","Agility","Inteligence"};
-   int monsterStrenght[4] ={3,2,5,1};
-   int monsterLife[4] ={3,2,4,1};
-
-   printf("\n Please enter your characters name \n ");
-   fgets(player1.charname, 20, stdin);
-   printf ("Your charachters name is %s", player1.charname);
+    printf("\nPlease enter your characters name: ");
+    fgets(player.charname, 20, stdin);
+    printf ("Your charachters name is %s", player.charname);
 
 /*   
 * If the user enters more then 20 characters for the name it will spill
@@ -57,7 +22,7 @@ int main(int argc, char **argv)
    printf("\n You have %d points to allocate for strength, agility and inteligence. ", charPoints);
    while (checkVal == 0)
    {
-   printf("\n Please enter the amount of points to allocate for %s, min 1 point. \n ", playerValues[0]);
+   printf("\n Please enter the amount of points to allocate for %s, min 1 point. \n ", statsName[0]);
    scanf("%s", str);
    val = atoi(str);
    checkVal = val;
@@ -65,7 +30,7 @@ int main(int argc, char **argv)
    {
         if (charPoints >= val)
         {
-        player1.stre = val;
+        player.stre = val;
         charPoints = (charPoints - checkVal);
        }
        else 
@@ -78,18 +43,18 @@ int main(int argc, char **argv)
    
    if (!charPoints)
             {
-             printf ("You didnt spend any points in %s. Your hero fails to grasp the concept of getting out of bed. \n", playerValues[2]);
+             printf ("You didnt spend any points in %s. Your hero fails to grasp the concept of getting out of bed. \n", statsName[2]);
              printf (" Your adventure ends before it even got started. \n");
              return 1;   
             };
    
    checkVal = reset;
    val = reset;
-   printf(" You character now have %d in %s .\n", player1.stre, playerValues[0]);
+   printf(" You character now have %d in %s .\n", player.stre, statsName[0]);
    printf(" You have %d points left to allocate. \n", charPoints);
    while (checkVal == 0)
    {
-   printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[1]);
+   printf("\n Please enter the amount of points to allocate for %s min 1. \n ", statsName[1]);
    scanf("%s", str);
    val = atoi(str);
    checkVal = val;
@@ -97,9 +62,9 @@ int main(int argc, char **argv)
    {
        if (charPoints >= val)
        {
-       player1.agi = val;
+       player.agi = val;
        charPoints = (charPoints - checkVal);
-       printf("You character now have %d in %s .\n", player1.agi, playerValues[1]);
+       printf("You character now have %d in %s .\n", player.agi, statsName[1]);
        printf(" You have %d points left to allocate. \n", charPoints);
        }
        else 
@@ -112,7 +77,7 @@ int main(int argc, char **argv)
    
    if (!charPoints)
             {
-             printf ("You didnt spend any points in %s. Your hero fails to grasp the concept of getting out of bed. \n", playerValues[2]);
+             printf ("You didnt spend any points in %s. Your hero fails to grasp the concept of getting out of bed. \n", statsName[2]);
              printf (" Your adventure ends before it even got started. \n");
              return 1;   
             };
@@ -122,7 +87,7 @@ int main(int argc, char **argv)
     
     while (checkVal == 0)
    {
-   printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[2]);
+   printf("\n Please enter the amount of points to allocate for %s min 1. \n ", statsName[2]);
    scanf("%s", str);
    val = atoi(str);
    checkVal = val;
@@ -130,9 +95,9 @@ int main(int argc, char **argv)
    {
        if (charPoints >= val)
        {
-       player1.intel = val;
+       player.intel = val;
        charPoints = (charPoints - checkVal);
-       printf("You character now have %d in %s .\n", player1.intel, playerValues[2]);
+       printf("You character now have %d in %s .\n", player.intel, statsName[2]);
        }
        else 
        {
@@ -196,7 +161,7 @@ int main(int argc, char **argv)
             printf("You need to roll for an inteligence check \n");
             rollDice = diece();
             printf ("You rolled %d \n", rollDice);
-            trapCheck = statsCheck(rollDice, player1.intel );
+            trapCheck = statsCheck(rollDice, player.intel );
             if ( trapCheck == 1)
              { 
                  printf("You failed to spot the hiden trap. \n");
@@ -251,7 +216,7 @@ int main(int argc, char **argv)
                 printf("You need to roll an agility check to see if you can avoid the pit. \n");
                 rollDice = diece();
                 printf ("You rolled %d \n", rollDice);
-                trapCheck = statsCheck(rollDice, player1.agi );
+                trapCheck = statsCheck(rollDice, player.agi );
                 if ( trapCheck == 1)
                 { 
                     printf("You failed to jump over the pit. \n");
@@ -299,8 +264,8 @@ int main(int argc, char **argv)
                     printf("You open the chest and find a sword. When you lift it \n");
                     printf("you feel the power of the sword filling your body. \n");
                     printf("You picked up a magic sword that gives you +1 in strength.  \n");
-                    player1.stre = (player1.stre +1);
-                    printf("Your strength is now %d . \n", player1.stre );
+                    player.stre = (player.stre +1);
+                    printf("Your strength is now %d . \n", player.stre );
                     break;
                     case (2):
                     printf("You leave the chest alone.  \n");
@@ -321,10 +286,10 @@ int main(int argc, char **argv)
     printf("You venture deeper in to the dungeon.   \n");
     int encounter = monsterEncounter() ;
     
-    printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
+    printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrengh[encounter], 
     monsterLife[encounter]);
     
-    int playerStr = player1.stre;
+    int playerStr = player.stre;
     int totalPlayer ;
     int monsterTotal;
     int playerLife = 8;
@@ -339,7 +304,7 @@ int main(int argc, char **argv)
         printf ("The %s roll %d on the dice \n", monster[encounter], dice2);
         sleep(2);
         totalPlayer = playerStr + dice1;
-        monsterTotal = monsterStrenght[encounter] + dice2;
+        monsterTotal = monsterStrengh[encounter] + dice2;
         printf ("Your attack score is %d, \n", totalPlayer);
         sleep(2);
         printf ("The %s attack score is %d, \n", monster[encounter], monsterTotal);
@@ -371,34 +336,4 @@ int main(int argc, char **argv)
     printf("You leave the dungeon for a life as a turnip farmer. \n");
  	
     return 0;
-}
-
-        
-int diece ()
-{
-        int dice ;
-        time_t t;
-        srand(time(&t));
-        dice = (rand() % 5) + 1;
-        return dice;
-}
-
-int monsterEncounter ()
-{
-    int monsterEncounter ;
-    time_t t;
-    srand(time(&t));   
-    monsterEncounter = (rand() % 3) + 1;    
-    return monsterEncounter;
-}
-
-int statsCheck (int playerStats, int diceRoll)
-{
-    int result;
-    result = 1;
-    if (playerStats < diceRoll  )
-    {
-    result = 0; 
-    }
-    return result;
 }
