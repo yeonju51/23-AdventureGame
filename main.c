@@ -414,8 +414,6 @@ void checkForExit(const char* check) {  //문자열이기에 포인터로 받음
 int diece ()
 {
         int dice ;
-        time_t t;
-        srand(time(&t));
         dice = (rand() % 5) + 1;
         return dice;
 }
@@ -423,23 +421,24 @@ int diece ()
 int monsterEncounter (int monster_lev) //입력한 난이도 받기
 {
     int monsterCount = 0 ;
-    time_t t;
-    srand(time(&t));   
-    switch(monster_lev){   //난이도에 따라 각기 다른 범위의 값을 반환해야 하기 때문에, switch 문을 사용하여 가독성이 높였습니다.
-      case 1:
-          monsterCount = (rand() % 2);
-          break;
-      case 2:
-          monsterCount = (rand() % 2) + 2;
-          break;
-      case 3:
-          monsterCount = (rand() % 2) + 4;
-          break;
-      default:     
-          break;
-      
+    // 시간을 더 세분화하여 시드 값을 만듦
+    SYSTEMTIME st;
+    GetSystemTime(&st);
+    srand((unsigned int)(st.wMilliseconds));
+    switch (monster_lev) {
+    case 1:
+        monsterCount = (rand() % 2);
+        break;
+    case 2:
+        monsterCount = (rand() % 2) + 2;
+        break;
+    case 3:
+        monsterCount = (rand() % 2) + 4;
+        break;
+    default:
+        break;
     }
-    return monsterCount;  //반환
+    return monsterCount;
 }
 
 int statsCheck (int playerStats, int diceRoll)
