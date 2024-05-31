@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "playerinfo.h"
 int diece ();
-int monsterEncounter();
+int monsterEncounter(int level);
 int statsCheck (int playerStats, int diceRoll);
 void checkForExit(const char* check);  //게임을 중단하는 키가 입력됐는지 확인하는 함수
 int main(int argc, char **argv)
@@ -35,10 +35,10 @@ int main(int argc, char **argv)
    struct playerInfo player1;
    char title[60] = "Welcome to this text based adventure game";
    printf("  %55.55s \n ", title) ; 
-   char * monster[4] = {"orc","goblin","Mountain troll","swarm of bats"};
+   char * monster[6] = {"thanos","joker","orc","goblin","Mountain troll","swarm of bats"};  // 난이도를 세분화 하기위해 몬스터 갯수 2개 증가(타노스, 조커)
    char * playerValues[3] ={"strength","Agility","Inteligence"};
-   int monsterStrenght[4] ={3,2,5,1};
-   int monsterLife[4] ={3,2,4,1};
+   int monsterStrenght[6] ={6,5,3,3,2,1};  // 난이도를 세분화 하기위해 몬스터의 스탯 세분화
+   int monsterLife[6] ={4,5,4,3,2,2};  //생명 세분화
 
    printf("\n Please enter your characters name \n ");
    fgets(player1.charname, 20, stdin);
@@ -53,6 +53,7 @@ int main(int argc, char **argv)
    int val ;
    int checkVal = 0;
    int reset = 0;
+   int level; //게임 난이도를 입력할 변수
    char str[20];
    int charPoints = 10;
    printf("\n You have %d points to allocate for strength, agility and inteligence. ", charPoints);
@@ -332,7 +333,9 @@ int main(int argc, char **argv)
 */    
     
     printf("You venture deeper in to the dungeon.   \n");
-    int encounter = monsterEncounter() ;
+    printf("\n Please select the level of the monsters!   1.Hard   2.Normal   3.Easy...   \n");  //난이도를 선택하라는 출력문
+    scanf("%d", &level);   //난이도 입력
+    int encounter = monsterEncounter(level) ;  //입력한 값 함수에 보내기
     
     printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
     monsterLife[encounter]);
@@ -402,13 +405,21 @@ int diece ()
         return dice;
 }
 
-int monsterEncounter ()
+int monsterEncounter (int monster_lev) //입력한 난이도 받기
 {
     int monsterEncounter ;
     time_t t;
     srand(time(&t));   
-    monsterEncounter = rand() % 4; //기존 코드는 1,2,3을 반환하므로 orc몬스터를 생성하지 않아 0,1,2,3을 반환하도록 변경
-    return monsterEncounter;
+    if(monster_lev == 1){  // ifelse를 통해 난이도마다 다른 범위의 숫자를 반환하도록 설정
+      monsterEncounter = (rand() % 2);  //hard면 0,1중 랜덤
+    }
+    else if(monster_lev == 2){
+      monsterEncounter = (rand() % 2) + 2;  //nomal이면 2,3중 랜덤
+    }
+    else{
+      monsterEncounter = (rand() % 2) + 4;  //easy면 4,5중 랜덤
+    }
+    return monsterEncounter;  //반환
 }
 
 int statsCheck (int playerStats, int diceRoll)
