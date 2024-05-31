@@ -76,7 +76,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s, min 1 point. \n ", playerValues[0]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문 
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수, 조금 더 클린한 코드를 위해서 const를 추가함
    val = atoi(str);
    checkVal = val;
@@ -110,7 +110,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[1]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
@@ -145,7 +145,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[2]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
@@ -196,7 +196,7 @@ int main(int argc, char **argv)
        printf("3. Go right \n");
        printf("Please enter choiche 1-3 \n");
        printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-       scanf("%s", str);
+       scanf_s("%s", str, 20); 
        checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
        val = atoi(str);
        checkVal = val;
@@ -246,7 +246,7 @@ int main(int argc, char **argv)
               printf("1. Try to break down the door. \n");
               printf("2. Try to pick the lock. \n");
               printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-              scanf("%s", str);
+              scanf_s("%s", str, 20); 
               checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
@@ -306,7 +306,7 @@ int main(int argc, char **argv)
               printf("1. Try to open the chest \n");
               printf("2. Leave the chest alone \n");
               printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-              scanf("%s", str);
+              scanf_s("%s", str, 20); 
               checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
@@ -349,7 +349,7 @@ int main(int argc, char **argv)
     
     printf("You venture deeper in to the dungeon.   \n");
     printf("\n Please select the level of the monsters!   1.Hard   2.Normal   3.Easy...   \n");  //난이도를 선택하라는 출력문
-    scanf("%d", &level);   //난이도 입력
+    scanf_s("%s", str, 20); //난이도 입력
     int encounter = monsterEncounter(level) ;  //입력한 값 함수에 보내기
     
     printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
