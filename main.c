@@ -410,14 +410,19 @@ int monsterEncounter (int monster_lev) //입력한 난이도 받기
     int monsterEncounter ;
     time_t t;
     srand(time(&t));   
-    if(monster_lev == 1){  // ifelse를 통해 난이도마다 다른 범위의 숫자를 반환하도록 설정
-      monsterEncounter = (rand() % 2);  //hard면 0,1중 랜덤
-    }
-    else if(monster_lev == 2){
-      monsterEncounter = (rand() % 2) + 2;  //nomal이면 2,3중 랜덤
-    }
-    else{
-      monsterEncounter = (rand() % 2) + 4;  //easy면 4,5중 랜덤
+    switch(monster_lev){   //난이도에 따라 각기 다른 범위의 값을 반환해야 하기 때문에, switch 문을 사용하여 가독성이 높였습니다.
+      case 1:
+          monsterEncounter = (rand() % 2);
+          break;
+      case 2:
+          monsterEncounter = (rand() % 2) + 2;
+          break;
+      case 3:
+          monsterEncounter = (rand() % 2) + 4;
+          break;
+      default:     
+          break;
+      
     }
     return monsterEncounter;  //반환
 }
