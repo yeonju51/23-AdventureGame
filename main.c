@@ -3,8 +3,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+
+#ifdef _WIN32
+#include <windows.h> // 윈도우 환경에서 Sleep 함수를 사용하기 위한 헤더 파일
+#else
+#include <unistd.h> // 유닉스 계열 운영체제에서 sleep 함수를 사용하기 위한 헤더 파일
+#endif
+
 #include "playerinfo.h"
+
+// sleep 함수를 호출하는 매크로 정의
+#ifdef _WIN32
+#define SLEEP(x) Sleep(x) // 윈도우 환경에서는 Sleep 함수 사용 
+#else
+#define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용 
+#endif
+
+
 int diece ();
 int monsterEncounter(int level);
 int statsCheck (int playerStats, int diceRoll);
@@ -61,7 +76,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s, min 1 point. \n ", playerValues[0]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문 
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수, 조금 더 클린한 코드를 위해서 const를 추가함
    val = atoi(str);
    checkVal = val;
@@ -95,7 +110,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[1]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
@@ -130,7 +145,7 @@ int main(int argc, char **argv)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[2]);
    printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-   scanf("%s", str);
+   scanf_s("%s", str, 20); 
    checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
@@ -181,7 +196,7 @@ int main(int argc, char **argv)
        printf("3. Go right \n");
        printf("Please enter choiche 1-3 \n");
        printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-       scanf("%s", str);
+       scanf_s("%s", str, 20); 
        checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
        val = atoi(str);
        checkVal = val;
@@ -231,7 +246,7 @@ int main(int argc, char **argv)
               printf("1. Try to break down the door. \n");
               printf("2. Try to pick the lock. \n");
               printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-              scanf("%s", str);
+              scanf_s("%s", str, 20); 
               checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
@@ -291,7 +306,7 @@ int main(int argc, char **argv)
               printf("1. Try to open the chest \n");
               printf("2. Leave the chest alone \n");
               printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
-              scanf("%s", str);
+              scanf_s("%s", str, 20); 
               checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
@@ -334,7 +349,7 @@ int main(int argc, char **argv)
     
     printf("You venture deeper in to the dungeon.   \n");
     printf("\n Please select the level of the monsters!   1.Hard   2.Normal   3.Easy...   \n");  //난이도를 선택하라는 출력문
-    scanf("%d", &level);   //난이도 입력
+    scanf_s("%s", str, 20); //난이도 입력
     int encounter = monsterEncounter(level) ;  //입력한 값 함수에 보내기
     
     printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
@@ -348,23 +363,23 @@ int main(int argc, char **argv)
     while (monsterAlive  > 0 ) 
     { 
         int dice1 = diece();
-        sleep(1);
+        SLEEP(1);
         int dice2 = diece();
         printf ("You roll %d on the dice, \n", dice1);
-        sleep(2);
+        SLEEP(2);
         printf ("The %s roll %d on the dice \n", monster[encounter], dice2);
-        sleep(2);
+        SLEEP(2);
         totalPlayer = playerStr + dice1;
         monsterTotal = monsterStrenght[encounter] + dice2;
         printf ("Your attack score is %d, \n", totalPlayer);
-        sleep(2);
+        SLEEP(2);
         printf ("The %s attack score is %d, \n", monster[encounter], monsterTotal);
-        sleep(2);
+        SLEEP(2);
     
         if (totalPlayer >= monsterTotal)
         { 
             printf("You attack the %s sucesfully \n", monster[encounter] );
-            sleep(1);
+            SLEEP(1);
             monsterAlive = (monsterAlive -1);
         }
         else
@@ -372,7 +387,7 @@ int main(int argc, char **argv)
             printf ("Your attack fails and the %s hits you for one damage .\n", monster[encounter] );
             playerLife = (playerLife -1);
             printf ("Your life is %d \n" , playerLife );
-            sleep(2);
+            SLEEP(2);
             if (playerLife == 0)
             {
              printf ("The %s proved too much for you. Your adventure ends here . \n", monster[encounter]);
