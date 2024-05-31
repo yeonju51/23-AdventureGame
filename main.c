@@ -68,7 +68,7 @@ int main(int argc, char **argv)
    int val ;
    int checkVal = 0;
    int reset = 0;
-   int level; //게임 난이도를 입력할 변수
+   int level=0; //게임 난이도를 입력할 변수
    char str[20];
    int charPoints = 10;
    printf("\n You have %d points to allocate for strength, agility and inteligence. ", charPoints);
@@ -350,7 +350,6 @@ int main(int argc, char **argv)
     printf("You venture deeper in to the dungeon.   \n");
     printf("\n Please select the level of the monsters!   1.Hard   2.Normal   3.Easy...   \n");  //난이도를 선택하라는 출력문
     scanf_s("%s", str, 20); //난이도 입력
-    int level = atoi(str); // 사용자 입력을 정수로 변환하여 level에 할당
     int encounter = monsterEncounter(level) ;  //입력한 값 함수에 보내기
     
     printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
