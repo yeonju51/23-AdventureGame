@@ -3,8 +3,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+
+#ifdef _WIN32
+#include <windows.h> // 윈도우 환경에서 Sleep 함수를 사용하기 위한 헤더 파일
+#else
+#include <unistd.h> // 유닉스 계열 운영체제에서 sleep 함수를 사용하기 위한 헤더 파일
+#endif
+
 #include "playerinfo.h"
+
+// sleep 함수를 호출하는 매크로 정의
+#ifdef _WIN32
+#define SLEEP(x) Sleep(x) // 윈도우 환경에서는 Sleep 함수 사용 
+#else
+#define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용 
+#endif
+
+
 int diece ();
 int monsterEncounter(int level);
 int statsCheck (int playerStats, int diceRoll);
@@ -348,23 +363,23 @@ int main(int argc, char **argv)
     while (monsterAlive  > 0 ) 
     { 
         int dice1 = diece();
-        sleep(1);
+        SLEEP(1);
         int dice2 = diece();
         printf ("You roll %d on the dice, \n", dice1);
-        sleep(2);
+        SLEEP(2);
         printf ("The %s roll %d on the dice \n", monster[encounter], dice2);
-        sleep(2);
+        SLEEP(2);
         totalPlayer = playerStr + dice1;
         monsterTotal = monsterStrenght[encounter] + dice2;
         printf ("Your attack score is %d, \n", totalPlayer);
-        sleep(2);
+        SLEEP(2);
         printf ("The %s attack score is %d, \n", monster[encounter], monsterTotal);
-        sleep(2);
+        SLEEP(2);
     
         if (totalPlayer >= monsterTotal)
         { 
             printf("You attack the %s sucesfully \n", monster[encounter] );
-            sleep(1);
+            SLEEP(1);
             monsterAlive = (monsterAlive -1);
         }
         else
@@ -372,7 +387,7 @@ int main(int argc, char **argv)
             printf ("Your attack fails and the %s hits you for one damage .\n", monster[encounter] );
             playerLife = (playerLife -1);
             printf ("Your life is %d \n" , playerLife );
-            sleep(2);
+            SLEEP(2);
             if (playerLife == 0)
             {
              printf ("The %s proved too much for you. Your adventure ends here . \n", monster[encounter]);
