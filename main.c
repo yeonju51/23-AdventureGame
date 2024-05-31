@@ -4,10 +4,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include <playerinfo.h>
+#include "playerinfo.h"
 int diece ();
 int monsterEncounter();
 int statsCheck (int playerStats, int diceRoll);
+void checkForExit(const char* check);  //게임을 중단하는 키가 입력됐는지 확인하는 함수
 int main(int argc, char **argv)
 {
     /*
@@ -58,7 +59,9 @@ int main(int argc, char **argv)
    while (checkVal == 0)
    {
    printf("\n Please enter the amount of points to allocate for %s, min 1 point. \n ", playerValues[0]);
+   printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문 
    scanf("%s", str);
+   checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수, 조금 더 클린한 코드를 위해서 const를 추가함
    val = atoi(str);
    checkVal = val;
    if (val > 0) 
@@ -90,7 +93,9 @@ int main(int argc, char **argv)
    while (checkVal == 0)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[1]);
+   printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
    scanf("%s", str);
+   checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
    if (val > 0) 
@@ -123,7 +128,9 @@ int main(int argc, char **argv)
     while (checkVal == 0)
    {
    printf("\n Please enter the amount of points to allocate for %s min 1. \n ", playerValues[2]);
+   printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
    scanf("%s", str);
+   checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
    val = atoi(str);
    checkVal = val;
    if (val > 0) 
@@ -172,7 +179,9 @@ int main(int argc, char **argv)
        printf("2. Go left \n");
        printf("3. Go right \n");
        printf("Please enter choiche 1-3 \n");
+       printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
        scanf("%s", str);
+       checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
        val = atoi(str);
        checkVal = val;
        if (val > 0)
@@ -220,7 +229,9 @@ int main(int argc, char **argv)
               printf("What do you want to do? \n");  
               printf("1. Try to break down the door. \n");
               printf("2. Try to pick the lock. \n");
+              printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
               scanf("%s", str);
+              checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
               if (val > 0)
@@ -278,7 +289,9 @@ int main(int argc, char **argv)
               printf("What do you want to do ? \n");  
               printf("1. Try to open the chest \n");
               printf("2. Leave the chest alone \n");
+              printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
               scanf("%s", str);
+              checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
               val = atoi(str);
               checkVal = val;
               if (val > 0)
@@ -373,6 +386,12 @@ int main(int argc, char **argv)
     return 0;
 }
 
+void checkForExit(const char* check) {  //문자열이기에 포인터로 받음   
+    if (check[0] == 'f' || check[0] == 'F') {  
+        printf("You chose to exit the game. Goodbye!\n");
+        exit(0);
+    }
+}
         
 int diece ()
 {
