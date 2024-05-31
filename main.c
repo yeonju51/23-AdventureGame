@@ -186,7 +186,7 @@ int main(int argc, char **argv)
     printf("You can go forward,left or right. \n");
     
     checkVal = reset;
-    int choosePath;
+    int choosePath=0;
     //int checkPath = 0;
     while (checkVal == 0)
    {
@@ -239,7 +239,7 @@ int main(int argc, char **argv)
             printf("The tunnel is blocked by a massive door \n");
             
             checkVal = reset;
-            int obstacle;
+            int obstacle=0;
             while (checkVal == 0)
             {
               printf("What do you want to do? \n");  
@@ -299,7 +299,7 @@ int main(int argc, char **argv)
             printf("You walk deeper in to the dungeon until the tunnel ends and you find yourself \n");
             printf("in a big room with a wooden chest in the middle \n");
             checkVal = reset;
-            int item;
+            int item=0;
             while (checkVal == 0)
             {
               printf("What do you want to do ? \n");  
@@ -350,6 +350,7 @@ int main(int argc, char **argv)
     printf("You venture deeper in to the dungeon.   \n");
     printf("\n Please select the level of the monsters!   1.Hard   2.Normal   3.Easy...   \n");  //난이도를 선택하라는 출력문
     scanf_s("%s", str, 20); //난이도 입력
+    int level = atoi(str); // 사용자 입력을 정수로 변환하여 level에 할당
     int encounter = monsterEncounter(level) ;  //입력한 값 함수에 보내기
     
     printf("\n You encountered a %s with %i strength and %i life . \n", monster[encounter], monsterStrenght[encounter], 
@@ -422,24 +423,24 @@ int diece ()
 
 int monsterEncounter (int monster_lev) //입력한 난이도 받기
 {
-    int monsterEncounter ;
+    int monsterCount = 0 ;
     time_t t;
     srand(time(&t));   
     switch(monster_lev){   //난이도에 따라 각기 다른 범위의 값을 반환해야 하기 때문에, switch 문을 사용하여 가독성이 높였습니다.
       case 1:
-          monsterEncounter = (rand() % 2);
+          monsterCount = (rand() % 2);
           break;
       case 2:
-          monsterEncounter = (rand() % 2) + 2;
+          monsterCount = (rand() % 2) + 2;
           break;
       case 3:
-          monsterEncounter = (rand() % 2) + 4;
+          monsterCount = (rand() % 2) + 4;
           break;
       default:     
           break;
       
     }
-    return monsterEncounter;  //반환
+    return monsterCount;  //반환
 }
 
 int statsCheck (int playerStats, int diceRoll)
