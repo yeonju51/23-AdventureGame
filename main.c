@@ -407,7 +407,7 @@ int monsterEncounter ()
     int monsterEncounter ;
     time_t t;
     srand(time(&t));   
-    monsterEncounter = (rand() % 3) + 1;    
+    monsterEncounter = rand() % 4; //기존 코드는 1,2,3을 반환하므로 orc몬스터를 생성하지 않아 0,1,2,3을 반환하도록 변경
     return monsterEncounter;
 }
 
