@@ -11,7 +11,8 @@
 #define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용 
 #endif
 
-#include "player.c"
+#include "player.h"
+#include "dungeon.h"
 
 int monsterEncounter(int level);
 
@@ -23,18 +24,8 @@ int main(int argc, char** argv)
 
     initPlayerStats();
 
+    dungeonFunc();
     /*
-     * I am certain that the whole points allocation could have been written in a more
-     * efficent manner and that I should have pushed it to a function but at this stage I
-     * am more concerned about getting it to work.
-     *
-    */
-
-    /*
-     * I use the case functionality because I thought it was a simple way of driving the
-     * story of the game forward. It also makes you pay attention on opening and closing your
-     * statements. And yes I should have pushed more stuff as functions.
-    */
     separator();
     title("Entering the Dungeon");
     printf("You stand at the entrance of the dungeon. A big sign proclaims, There will be cake! \n");
@@ -201,14 +192,6 @@ int main(int argc, char** argv)
 
         break;
     };
-
-    /*
-    * I am certain there is other ways of getting a random number generated then
-    * the one I use in my function but this is the one I found and decided to use.
-    * As to get the text to not scroll to fast I set a sleep so that the user have
-    * time to read it also does so that at leat a second passes betwwen the calls to
-    * the random function.
-    */
     separator();
     printf("You venture deeper in to the dungeon.   \n");
     title("Fight against monsters");
@@ -269,7 +252,7 @@ int main(int argc, char** argv)
     printf("You managed to slay the %s \n", monster[encounter]);
     printf("You slayed the monster but to no avail as there is no cake to be had. \n");
     printf("You leave the dungeon for a life as a turnip farmer. \n");
-
+    */
     return 0;
 }
 

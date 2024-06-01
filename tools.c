@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "tools.h"
+
 int diece()
 {
     int dice;

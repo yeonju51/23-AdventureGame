@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "global.c"
-#include "tools.c"
+#include "player.h"
+#include "global.h"
+#include "tools.h"
 
 void initPlayerName()
 {

@@ -1,8 +1,6 @@
 #include "playerinfo.h"
 
-#define PLAYER_STATS_COUNT 3
-#define MONSTER_COUNT 6
-#define STR_SIZE 20
+#include "global.h"
 
 int rollDice;
 int trapCheck;
