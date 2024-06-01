@@ -1,16 +1,8 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
-
 #ifdef _WIN32
 #include <windows.h> // 윈도우 환경에서 Sleep 함수를 사용하기 위한 헤더 파일
 #else
 #include <unistd.h> // 유닉스 계열 운영체제에서 sleep 함수를 사용하기 위한 헤더 파일
 #endif
-
-#include "playerinfo.h"
 
 // sleep 함수를 호출하는 매크로 정의
 #ifdef _WIN32
@@ -19,42 +11,14 @@
 #define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용 
 #endif
 
+#include "global.c"
+#include "tools.c"
 
-int diece();
 int monsterEncounter(int level);
-int statsCheck(int playerStats, int diceRoll);
-void checkForExit(const char* check);  //게임을 중단하는 키가 입력됐는지 확인하는 함수
-void separator(); //구분선 추가 함수
-void title(const char* title); // 특정 이벤트 표시 함수
+
 int main(int argc, char** argv)
 {
-    /*
-*   Copyright (C) 2016 Oscar Ydrefelt
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License version 3 as published by
-*   the Free Software Foundation.
-
-*   This program is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-*
-*   I wrote this program because I was curious about C and I wanted
-*   to try it out and It was written mostly by trading sleep for coding.
-*   I am certain that there is tons of ways this code could be better and
-*   if I have the time and continue to go down the path of C I might come
-*   back to it.
-*/
-
-
-    int rollDice;
-    int trapCheck;
-    struct playerInfo player1;
     title("Welcome to this text based adventure game");
-    char* monster[6] = { "thanos","joker","orc","goblin","Mountain troll","swarm of bats" };  // 난이도를 세분화 하기위해 몬스터 갯수 2개 증가(타노스, 조커)
-    char* playerValues[3] = { "strength","Agility","Inteligence" };
-    int monsterStrenght[6] = { 6,5,3,3,2,1 };  // 난이도를 세분화 하기위해 몬스터의 스탯 세분화
-    int monsterLife[6] = { 4,5,4,3,2,2 };  //생명 세분화
 
     printf("\n Please enter your characters name \n ");
     printf("name: ");
@@ -423,20 +387,6 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void checkForExit(const char* check) {  //문자열이기에 포인터로 받음   
-    if (check[0] == 'f' || check[0] == 'F') {
-        printf("You chose to exit the game. Goodbye!\n");
-        exit(0);
-    }
-}
-
-int diece()
-{
-    int dice;
-    dice = (rand() % 5) + 1;
-    return dice;
-}
-
 int monsterEncounter(int monster_lev) //입력한 난이도 받기
 {
     int monsterCount = 0;
@@ -460,25 +410,4 @@ int monsterEncounter(int monster_lev) //입력한 난이도 받기
     return monsterCount;
 }
 
-int statsCheck(int playerStats, int diceRoll)
-{
-    int result;
-    result = 1;
-    if (playerStats < diceRoll)
-    {
-        result = 0;
-    }
-    return result;
-}
 
-void separator()
-{
-    printf("--------------------------------------------------------\n");
-}
-
-void title(const char* title)
-{
-    printf("\n\n");
-    printf("********** %s **********\n\n", title);
-
-}
