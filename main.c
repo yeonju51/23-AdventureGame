@@ -8,6 +8,7 @@
 #include <windows.h> // 윈도우 환경에서 Sleep 함수를 사용하기 위한 헤더 파일
 #else
 #include <unistd.h> // 유닉스 계열 운영체제에서 sleep 함수를 사용하기 위한 헤더 파일
+#include <sys/time.h> //유닉스 계열 운영체제에서 gettimeofday 함수를 사용하기 위한 헤더 파일
 #endif
 
 #include "playerinfo.h"
@@ -441,9 +442,17 @@ int monsterEncounter(int monster_lev) //입력한 난이도 받기
 {
     int monsterCount = 0;
     // 시간을 더 세분화하여 시드 값을 만듦
-    SYSTEMTIME st;
-    GetSystemTime(&st);
-    srand((unsigned int)(st.wMilliseconds));
+ 
+    #ifdef _WIN32
+        SYSTEMTIME st;
+        GetSystemTime(&st);
+        srand((unsigned int)(st.wMilliseconds));
+    #else
+        struct timeval time;
+        gettimeofday(&time, NULL);
+        srand((time.tv_sec * 1000) + (time.tv_usec / 1000));
+    #endif
+
     switch (monster_lev) {
     case 1:
         monsterCount = (rand() % 2);
