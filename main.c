@@ -14,10 +14,12 @@
 #include "playerinfo.h"
 
 // sleep 함수를 호출하는 매크로 정의
+#ifndef SLEEP
 #ifdef _WIN32
-#define SLEEP(x) Sleep(x) // 윈도우 환경에서는 Sleep 함수 사용 
+#define SLEEP(x) Sleep(1000 * (x)) // 윈도우 환경에서는 Sleep 함수 사용, 밀리초 단위
 #else
-#define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용 
+#define SLEEP(x) sleep(x) // 유닉스 계열 운영체제에서는 sleep 함수 사용, 초 단위
+#endif
 #endif
 
 
