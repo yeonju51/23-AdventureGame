@@ -6,10 +6,11 @@
 #define DICE_FACE 6
 #define MONSTER_COUNT 6
 
-int rollDice;
-
 struct playerInfo player1;
 char* playerValues[PLAYER_STATS_COUNT];
+int playerDice;
+
+int waitingTime;
 
 int val;
 int checkVal;

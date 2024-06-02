@@ -14,8 +14,9 @@ void choosePath()
     printf("You can go forward,left or right.\n");
 
     checkVal = reset;
-    int path = 0;
+    int path;
     int trapCheck;
+
     while (checkVal == 0)
     {
         printf("Which way do you choose?\n");
@@ -23,35 +24,41 @@ void choosePath()
         printf("2. Go left\n");
         printf("3. Go right\n");
         printf("Please enter choiche 1-3.\n");
-        printf("If you want to exit the game, type 'f' and press enter.\n"); // 종료하고싶으면 f를 누르라는 안내문
+
+        // 종료
+        printf("If you want to exit the game, type 'f' and press enter.\n");
         scanf_s("%s", str, STR_SIZE);
-        checkForExit(str); // 종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
+        checkForExit(str);
+
         val = atoi(str);
         checkVal = val;
-        if (val > 0)
+
+        // 적절치 않은 값을 입력했을 때
+        if (val < 0 || val > 3)
         {
-            if (val > 3)
-            {
-                checkVal = reset;
-            }
-            else
-            {
-                path = val;
-            }
+            printf("Invalid Value: choose path again.\n");
+            checkVal = reset;
+        }
+        else
+        {
+            path = val;
         }
     }
 
     switch (path)
     {
+        // forward
         case (1):
             printf("\nYou choose the tunnel leading forward into the dungeon.\n");
             printf("The tunnel descends depper into the dungeon.\n");
             printf("You need to roll for an inteligence check.\n");
 
-            rollDice = diece();
-            printf("You rolled %d.\n", rollDice);
+            playerDice = diece();
+            printf("You rolled %d.\n", playerDice);
 
-            trapCheck = statsCheck(rollDice, player1.intel);
+            trapCheck = statsCheck(playerDice, player1.stats[intel]);
+            
+            // 함정에 걸리고 게임 종료
             if (trapCheck == 1)
             {
                 printf("\nYou failed to spot the hiden trap.\n");
@@ -59,12 +66,16 @@ void choosePath()
                 printf("And with that your adventuring days are over. You limp out of the dungeon.\n");
                 exit(0);
             }
+
+            // 함정 돌파 성공
             else
             {
                 printf("\nYou spot and disable a hidden trap.\n");
             }
+
             break;
 
+        // left
         case (2):
             printf("\nYou choose the tunnel leading left into the dungeon.\n");
             printf("The tunnel is blocked by a massive door.\n");
@@ -76,40 +87,53 @@ void choosePath()
                 printf("What do you want to do?\n");
                 printf("1. Try to break down the door.\n");
                 printf("2. Try to pick the lock.\n");
-                printf("If you want to exit the game, type 'f' and press enter.\n"); // 종료하고싶으면 f를 누르라는 안내문
+                
+                // 종료
+                printf("If you want to exit the game, type 'f' and press enter.\n");
                 scanf_s("%s", str, STR_SIZE);
-                checkForExit(str); // 종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
+                checkForExit(str);
+
                 val = atoi(str);
                 checkVal = val;
-                if (val > 0)
+
+                // 적절치 않은 값을 입력했을 때
+                if (val < 0 || val > 2)
                 {
-                    if (val > 2)
-                    {
-                        checkVal = reset;
-                    }
-                    else
-                    {
-                        obstacle = val;
-                    }
+                    printf("Invalid Value: choose path again.\n");
+                    checkVal = reset;
+                    continue;
+                }
+                else
+                {
+                    obstacle = val;
                 }
             }
+
             switch (obstacle)
             {
+                // 문을 발로 찰 때
                 case (1):
                     printf("\nYou kick the door with all your might in an attempt to break it down.\n");
                     printf("The door wasnt locked.\n");
+
+                    // 구덩이에 빠져 게임 종료
                     printf("The door opens and you tumble down into the spike filled pit hidden behind the door.\n");
                     printf("Enjoy your new career as a pincushion.\n");
                     printf("Your adventure ends here.\n");
                     exit(0);
-                    break;
+                
+                // 문 잠금을 해제하려고 할 때
                 case (2):
                     printf("\nYou bend down to try to pick the lock only to notice that the door isnt locked.\n");
                     printf("You also noties the spike filled pit that is hidden behind the door.\n");
                     printf("You need to roll an agility check to see if you can avoid the pit.\n");
-                    rollDice = diece();
-                    printf("You rolled %d.\n", rollDice);
-                    trapCheck = statsCheck(rollDice, player1.agi);
+
+                    playerDice = diece();
+                    printf("You rolled %d.\n", playerDice);
+                    SLEEP(waitingTime);
+                    trapCheck = statsCheck(playerDice, player1.stats[agi]);
+
+                    // 구덩이를 뛰어넘는데 실패했을 때
                     if (trapCheck == 1)
                     {
                         printf("\nYou failed to jump over the pit.\n");
@@ -117,51 +141,64 @@ void choosePath()
                         printf("Your adventure ends here.\n");
                         exit(0);
                     }
+                    // 구덩이를 성공적으로 뛰어 넘을 때
                     else
                     {
                         printf("\nYou manage to safely jump over the pit.\n");
+                        break;
                     }
-                    break;
             }
+
             break;
 
+        // right
         case (3):
             printf("\nYou choose the right tunnel into the dungeon.\n");
             printf("You walk deeper in to the dungeon until the tunnel ends and you find yourself.\n");
             printf("in a big room with a wooden chest in the middle.\n");
+
             checkVal = reset;
             int item = 0;
+
             while (checkVal == 0)
             {
                 printf("What do you want to do?\n");
                 printf("1. Try to open the chest\n");
                 printf("2. Leave the chest alone\n");
-                printf("If you want to exit the game, type 'f' and press enter.\n"); //종료하고싶으면 f를 누르라는 안내문
+
+                // 종료
+                printf("If you want to exit the game, type 'f' and press enter.\n");
                 scanf_s("%s", str, STR_SIZE);
-                checkForExit(str);  //종료를 위한 특정 문자가 입력되었는지 확인하는 함수  
+                checkForExit(str); 
+
                 val = atoi(str);
                 checkVal = val;
-                if (val > 0)
+
+                // 적절치 않은 값을 입력했을 때
+                if (val < 0 || val > 2)
                 {
-                    if (val > 2)
-                    {
-                        checkVal = reset;
-                    }
-                    else
-                    {
-                        item = val;
-                    }
+                    printf("Invalid Value: choose path again.\n");
+                    checkVal = reset;
+                    continue;
+                }
+                else
+                {
+                    item = val;
                 }
             }
             switch (item)
             {
+                // 보물상자를 열 때
                 case (1):
                     printf("\nYou open the chest and find a sword. When you lift it\n");
                     printf("you feel the power of the sword filling your body.\n");
                     printf("You picked up a magic sword that gives you +1 in strength.\n");
-                    player1.stre = (player1.stre + 1);
-                    printf("Your strength is now %d . \n", player1.stre);
+
+                    player1.stats[stre] += 1;
+                    printf("Your strength is now %d .\n", player1.stats[stre]);
                     break;
+                
+                // 그냥 떠날 때
                 case (2):
                     printf("\nYou leave the chest alone.\n");
                     break;
@@ -173,69 +210,81 @@ void choosePath()
 void encounterMonster()
 {
     title("Fight against monsters");
+
+    // 난이도 선택
     printf("You venture deeper in to the dungeon.\n");
-    printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");  // 난이도를 선택하라는 출력문
-    scanf_s("%s", str, STR_SIZE); // 난이도 입력
-    int level = atoi(str); // 게임 난이도를 입력할 변수
+    printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
-    char* monster[MONSTER_COUNT] = { "thanos", "joker", "orc", "goblin", "mountain troll", "swarm of bats" }; // 난이도 세분화를 위한 몬스터 추가(thanos, joker)
-    int monsterStrenght[MONSTER_COUNT] = { 6, 5, 3, 3, 2, 1 }; // 몬스터 스텟 세분화
-    int monsterLife[MONSTER_COUNT] = { 4, 5, 4, 3, 2, 2 }; // 몬스터 생명 세분화
+    // 난이도 입력
+    scanf_s("%s", str, STR_SIZE);
+    int level = atoi(str);
 
-    int encounter = getRandMonster(level); // 입력한 값 함수에 보내기
+    char* monster[MONSTER_COUNT] = { "thanos", "joker", "orc", "goblin", "mountain troll", "swarm of bats" }; // 몬스터 종류(난이도 세분화를 위해 thanos, joker 추가)
+    int monsterStr[MONSTER_COUNT] = { 6, 5, 3, 3, 2, 1 }; // 몬스터 힘
+    int monsterLife[MONSTER_COUNT] = { 4, 5, 4, 3, 2, 2 }; // 몬스터 HP
 
-    printf("\nYou encountered a %s with %i strength and %i life.\n", monster[encounter], monsterStrenght[encounter], monsterLife[encounter]);
+    // 몬스터 인카운터
+    int encounter = getRandMonster(level);
 
-    int playerStr = player1.stre;
-    int totalPlayer;
-    int monsterTotal;
+    int playerStr = player1.stats[stre];
     int playerLife = 8;
-    int monsterAlive = monsterLife[encounter];
-    int waitingTime = 1;
-    while (monsterAlive > 0)
+    int playerTotal;
+
+    char* encounterMonster = monster[encounter];
+    int encounterMonsterStr = monsterStr[encounter];
+    int encounterMonsterLife = monsterLife[encounter];
+    int encounterMonsterTotal;
+
+    printf("\nYou encountered a %s with %i strength and %i life.\n", encounterMonster, encounterMonsterStr, encounterMonsterLife);
+
+    while (encounterMonsterLife > 0)
     {
-        //전투 시작 전 정보 출력
+        // 전투 전 정보 출력
         printf("\nYour strength: %d\n", playerStr);
         printf("Your life: %d\n", playerLife);
-        printf("\n%s's strength: %d\n", monster[encounter], monsterStrenght[encounter]);
-        printf("%s's life: %d\n", monster[encounter], monsterAlive);
+        printf("\n%s's strength: %d\n", encounterMonster, encounterMonsterStr);
+        printf("%s's life: %d\n", encounterMonster, encounterMonsterLife);
 
-        int dice1 = diece();
-        SLEEP(waitingTime);
-        int dice2 = diece();
-        printf("\nYou roll %d on the dice.\n", dice1);
-        SLEEP(waitingTime);
-        printf("The %s roll %d on the dice.\n", monster[encounter], dice2);
-        SLEEP(waitingTime);
-        totalPlayer = playerStr + dice1;
-        monsterTotal = monsterStrenght[encounter] + dice2;
-        printf("Your attack score is %d.\n", totalPlayer);
-        SLEEP(waitingTime);
-        printf("The %s attack score is %d.\n", monster[encounter], monsterTotal);
+        playerDice = diece();
+        int monsterDice = diece();
         SLEEP(waitingTime);
 
-        if (totalPlayer >= monsterTotal)
+        printf("\nYou roll %d on the dice.\n", playerDice);
+        SLEEP(waitingTime);
+
+        printf("The %s roll %d on the dice.\n", encounterMonster, monsterDice);
+        SLEEP(waitingTime);
+
+        // attack total 계산
+        playerTotal = playerStr + playerDice;
+        encounterMonsterTotal = encounterMonsterStr + monsterDice;
+        printf("Your attack score is %d.\n", playerTotal);
+        SLEEP(waitingTime);
+        printf("The %s attack score is %d.\n", encounterMonster, encounterMonsterTotal);
+        SLEEP(waitingTime);
+
+        // player와 monster의 토탈 값을 비교
+        if (playerTotal >= encounterMonsterTotal)
         {
-            printf("You attack the %s sucesfully.\n", monster[encounter]);
+            printf("You attack the %s sucesfully.\n", encounterMonster);
+            encounterMonsterLife -= 1;
             SLEEP(waitingTime);
-            monsterAlive -= 1;
         }
         else
         {
-            printf("Your attack fails and the %s hits you for one damage.\n", monster[encounter]);
+            printf("Your attack fails and the %s hits you for one damage.\n", encounterMonster);
             playerLife -= 1;
-            printf("Your life is %d.\n", playerLife);
             SLEEP(waitingTime);
             if (playerLife == 0)
             {
-                printf("\nThe %s proved too much for you. Your adventure ends here.\n", monster[encounter]);
+                printf("\nThe %s proved too much for you. Your adventure ends here.\n", encounterMonster);
                 exit(0);
             }
         }
 
     };
 
-    printf("\nYou managed to slay the %s.\n", monster[encounter]);
+    printf("\nYou managed to slay the %s.\n", encounterMonster);
     printf("You slayed the monster but to no avail as there is no cake to be had.\n");
     printf("You leave the dungeon for a life as a turnip farmer.\n");
 }
