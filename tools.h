@@ -5,8 +5,7 @@ int diece();
 
 int statsCheck(int playerStats, int diceRoll);
 
-// 구분선 출력
-void separator();
+int getRandMonster(int monster_lev);
 
 void checkForExit(const char* check);
 

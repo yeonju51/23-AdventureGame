@@ -1,3 +1,4 @@
+#include "tools.h"
 #include "player.h"
 #include "dungeon.h"
 
