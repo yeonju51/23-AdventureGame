@@ -6,7 +6,7 @@
 #include "global.h"
 #include "utils.h"
 
-int diece()
+int dice()
 {
     int dice;
     dice = (rand() % (DICE_FACE - 1)) + 1;
