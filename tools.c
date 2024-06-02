@@ -27,9 +27,17 @@ int getRandMonster(int monster_lev) //입력한 난이도 받기
 {
     int monster = 0;
     // 시간을 더 세분화하여 시드 값을 만듦
-    SYSTEMTIME st;
-    GetSystemTime(&st);
-    srand((unsigned int)(st.wMilliseconds));
+ 
+    #ifdef _WIN32
+        SYSTEMTIME st;
+        GetSystemTime(&st);
+        srand((unsigned int)(st.wMilliseconds));
+    #else
+        struct timeval time;
+        gettimeofday(&time, NULL);
+        srand((time.tv_sec * 1000) + (time.tv_usec / 1000));
+    #endif
+
     switch (monster_lev) {
     case 1:
         monster = (rand() % 2);
