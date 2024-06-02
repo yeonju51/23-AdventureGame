@@ -9,9 +9,9 @@ int main(int argc, char** argv)
 
     initPlayerStats();
 
-    choosePath();
+    // choosePath();
 
-    encounterMonster();
+    // encounterMonster();
 
     return 0;
 }

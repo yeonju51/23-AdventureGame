@@ -4,9 +4,7 @@
 #include "playerinfo.h"
 
 #define DICE_FACE 6
-#define PLAYER_STATS_COUNT 3
 #define MONSTER_COUNT 6
-#define STR_SIZE 20
 
 int rollDice;
 
