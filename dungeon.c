@@ -53,7 +53,7 @@ void choosePath()
             printf("The tunnel descends depper into the dungeon.\n");
             printf("You need to roll for an inteligence check.\n");
 
-            playerDice = diece();
+            playerDice = dice();
             printf("You rolled %d.\n", playerDice);
 
             trapCheck = statsCheck(playerDice, player1.stats[intel]);
@@ -128,7 +128,7 @@ void choosePath()
                     printf("You also noties the spike filled pit that is hidden behind the door.\n");
                     printf("You need to roll an agility check to see if you can avoid the pit.\n");
 
-                    playerDice = diece();
+                    playerDice = dice();
                     printf("You rolled %d.\n", playerDice);
                     SLEEP(waitingTime);
                     trapCheck = statsCheck(playerDice, player1.stats[agi]);
@@ -245,8 +245,8 @@ void encounterMonster()
         printf("\n%s's strength: %d\n", encounterMonster, encounterMonsterStr);
         printf("%s's life: %d\n", encounterMonster, encounterMonsterLife);
 
-        playerDice = diece();
-        int monsterDice = diece();
+        playerDice = dice();
+        int monsterDice = dice();
         SLEEP(waitingTime);
 
         printf("\nYou roll %d on the dice.\n", playerDice);
