@@ -59,6 +59,9 @@ void checkForExit(const char* check)
     if (*check == 'f' || *check == 'F') {
         printf("You chose to exit the game. Goodbye!\n");
         exit(0);
+    } else {
+        printf("Invalid input. Please enter 'f' to exit the game.\n");
+        // 프로그램 종료하지 않고 다른 동작 수행
     }
 }
 
