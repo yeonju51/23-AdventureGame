@@ -27,7 +27,7 @@ void choosePath()
 
         // 종료
         printf("If you want to exit the game, type 'f' and press enter.\n");
-        scanf_s("%s", str, STR_SIZE);
+        scanf("%s", str, STR_SIZE);
         checkForExit(str);
 
         val = atoi(str);
@@ -90,7 +90,7 @@ void choosePath()
                 
                 // 종료
                 printf("If you want to exit the game, type 'f' and press enter.\n");
-                scanf_s("%s", str, STR_SIZE);
+                scanf("%s", str, STR_SIZE);
                 checkForExit(str);
 
                 val = atoi(str);
@@ -168,7 +168,7 @@ void choosePath()
 
                 // 종료
                 printf("If you want to exit the game, type 'f' and press enter.\n");
-                scanf_s("%s", str, STR_SIZE);
+                scanf("%s", str, STR_SIZE);
                 checkForExit(str); 
 
                 val = atoi(str);
@@ -216,7 +216,7 @@ void encounterMonster()
     printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
     // 난이도 입력
-    scanf_s("%s", str, STR_SIZE);
+    scanf("%s", str, STR_SIZE);
     int level = atoi(str);
 
     char* monster[MONSTER_COUNT] = { "thanos", "joker", "orc", "goblin", "mountain troll", "swarm of bats" }; // 몬스터 종류(난이도 세분화를 위해 thanos, joker 추가)
