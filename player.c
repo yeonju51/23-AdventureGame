@@ -15,10 +15,11 @@ void initPlayerName()
 
 void initPlayerStats()
 {
-    int charPoints = 10;
     title("Allocate Your Ability Points");
 
-    printf("\nYou have %d points to allocate for strength, agility and inteligence.", charPoints);
+    int charPoints = 10;
+
+    printf("You have %d points to allocate for strength, agility and inteligence.", charPoints);
 
     while (checkVal == 0)
     {
@@ -119,6 +120,6 @@ void initPlayerStats()
 
     if (charPoints != 0)
     {
-        printf("You didnt spend all your points. To bad for you.\n");
+        printf("You didnt spend all your points. To bad for you.");
     };
 }
