@@ -29,9 +29,27 @@ void test_statsCheck()
 
 }
 
+// getRandMonster 함수 테스트
+void test_getRandMonster() 
+{
+    // 난이도가 1인 경우 -> 0 or 1
+    int result1 = getRandMonster(1);
+    assert(result1 >= 0 && result1 <= 1);
+
+    // 난이도가 2인 경우 -> 2 or 3
+    int result2 = getRandMonster(2);
+    assert(result2 >= 2 && result2 <= 3);
+
+    // 난이도가 3인 경우 -> 4 or 5
+    int result3 = getRandMonster(3);
+    assert(result3 >= 4 && result3 <= 5);
+
+    printf("getRandMonster function test 성공!\n");
+}
 
 int main(){
     test_dice();
     test_statsCheck();
+    test_getRandMonster();
 
 }
