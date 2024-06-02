@@ -14,6 +14,24 @@ void test_dice()
     printf("dice function test 성공!\n");
 }
 
+//statsCheck 함수 테스트
+
+void test_statsCheck() 
+{
+    // 플레이어 스탯 >= 주사위
+    assert(statsCheck(5, 3) == 1); // 테스트 통과
+    assert(statsCheck(3, 3) == 1); // 테스트 통과
+
+    // 플레이어 스탯 < 주사위 
+    assert(statsCheck(3, 5) == 0); // 테스트 통과
+    assert(statsCheck(2, 4) == 0); // 테스트 통과
+    printf("statsCheck function test 성공!\n");
+
+}
+
+
 int main(){
     test_dice();
+    test_statsCheck();
+
 }
