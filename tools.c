@@ -8,10 +8,11 @@
 
 int dice()
 {
-    int dice;
-    dice = (rand() % (DICE_FACE - 1)) + 1;
+    srand((unsigned int)time(NULL)); // 현재 시간을 이용하여 시드를 초기화합니다.
+    int dice = (rand() % DICE_FACE) + 1; // 1부터 DICE_FACE까지의 랜덤한 값을 반환합니다.
     return dice;
 }
+
 
 int statsCheck(int playerStats, int diceRoll)
 {
