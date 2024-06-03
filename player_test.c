@@ -64,3 +64,9 @@ void test_initPlayerStats()
     }
 }
 
+int main() 
+{
+    test_initPlayerName();
+    test_initPlayerStats();
+    return 0;
+}
