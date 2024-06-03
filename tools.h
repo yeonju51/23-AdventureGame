@@ -15,4 +15,5 @@ int getIntInput();
 
 int isNumeric(const char *str);
 
+
 #endif // TOOLS_H

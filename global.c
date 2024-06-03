@@ -14,15 +14,3 @@ int checkVal = 0;
 int reset = 0;
 char str[STR_SIZE] = "";
 
-char* allocateStringBuffer() {
-    char* str = (char*)malloc(STR_SIZE * sizeof(char));
-    if (str == NULL) {
-        fprintf(stderr, "Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
-    }
-    return str;
-}
-
-void freeStringBuffer(char* str) {
-    free(str);
-}

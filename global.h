@@ -17,4 +17,5 @@ int checkVal;
 int reset;
 char str[STR_SIZE];
 
+
 #endif // GLOBAL_H

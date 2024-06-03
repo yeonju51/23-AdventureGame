@@ -9,7 +9,6 @@
 
 void choosePath()
 {
-    char* str = allocateStringBuffer();
 
     title("Entering the Dungeon");
     printf("You stand at the entrance of the dungeon. A big sign proclaims, There will be cake!\n");
@@ -42,6 +41,7 @@ void choosePath()
         // 종료
         printf("If you want to exit the game, type 'f' and press enter.\n");
         fgets(str, STR_SIZE, stdin);
+
         checkForExit(str);
 
         val = atoi(str);
@@ -221,7 +221,6 @@ void choosePath()
             break;
         }; 
         
-    freeStringBuffer(str);
 
 
 }
@@ -235,7 +234,6 @@ void encounterMonster()
     printf("You venture deeper in to the dungeon.\n");
     printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
-    char* str = allocateStringBuffer();
 
     // 난이도 입력
 
@@ -309,7 +307,6 @@ void encounterMonster()
         }
 
     };
-    freeStringBuffer(str);
 
     printf("\nYou managed to slay the %s.\n", encounterMonster);
     printf("You slayed the monster but to no avail as there is no cake to be had.\n");
