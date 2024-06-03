@@ -244,7 +244,9 @@ void encounterMonster()
     printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
     // 난이도 입력
+
     fgets(str, STR_SIZE, stdin);
+
     int level = atoi(str);
 
     // 메모리 해제
