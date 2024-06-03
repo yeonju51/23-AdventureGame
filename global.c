@@ -3,7 +3,7 @@
 #include "global.h"
 
 struct playerInfo player1;
-char* playerValues[PLAYER_STATS_COUNT] = { "Strength", "Agility", "Inteligence" };
+char* playerValues[PLAYER_STATS_COUNT] = { "Strength", "Agility", "Intelligence" };
 int playerDice = 0;
 
 int waitingTime = 1;
