@@ -11,7 +11,8 @@ void choosePath()
 {
     // 문자열 버퍼 할당
     char* str = (char*)malloc(STR_SIZE * sizeof(char));
-    if (str == NULL) {
+    if (str == NULL) 
+    {
         fprintf(stderr, "Memory allocation failed.\n");
         exit(EXIT_FAILURE);
     }

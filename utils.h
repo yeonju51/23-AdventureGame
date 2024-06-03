@@ -10,7 +10,5 @@
 #define SLEEP(x) sleep(x)
 #endif
 
-int getIntInput();
-int isNumeric(const char *str);
 
 #endif // UTILS_H

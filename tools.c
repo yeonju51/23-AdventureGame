@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #include "tools.h"
 #include "global.h"
@@ -8,8 +9,9 @@
 
 int dice()
 {
-    srand((unsigned int)time(NULL)); // 현재 시간을 이용하여 시드를 초기화합니다.
-    int dice = (rand() % DICE_FACE) + 1; // 1부터 DICE_FACE까지의 랜덤한 값을 반환합니다.
+    // 현재 시간을 이용하여 시드를 초기화합니다.
+    srand((unsigned int)time(NULL)); 
+    int dice = (rand() % DICE_FACE) + 1; 
     return dice;
 }
 
@@ -25,9 +27,10 @@ int statsCheck(int playerStats, int diceRoll)
     return result;
 }
 
-int getRandMonster(int monster_lev) //입력한 난이도 받기
+//입력한 난이도 받기
+int getRandMonster(int monster_lev) 
 {
-    int monster = 0; // 시간을 더 세분화하여 시드 값을 만듦
+    int monster = 0; 
  
     #ifdef _WIN32
         SYSTEMTIME st;
@@ -39,7 +42,8 @@ int getRandMonster(int monster_lev) //입력한 난이도 받기
         srand((time.tv_sec * 1000) + (time.tv_usec / 1000));
     #endif
 
-    switch (monster_lev) {
+    switch (monster_lev) 
+    {
     case 1:
         monster = (rand() % 2);
         break;
@@ -57,7 +61,8 @@ int getRandMonster(int monster_lev) //입력한 난이도 받기
 
 void checkForExit(const char* check)  
 {
-    if (*check == 'f' || *check == 'F') {
+    if (*check == 'f' || *check == 'F') 
+    {
         printf("You chose to exit the game. Goodbye!\n");
         exit(0);
     } 
@@ -66,4 +71,41 @@ void checkForExit(const char* check)
 void title(const char* title)
 {
     printf("\n********** %s **********\n\n", title);
+}
+
+
+int getIntInput() 
+{
+    char input[STR_SIZE];
+    int value;
+
+    while (1) 
+    {
+        fgets(input, sizeof(input), stdin);
+        input[strcspn(input, "\n")] = '\0'; 
+
+        // 문자열이 숫자로 변환 가능한지 확인
+        if (isNumeric(input)) 
+        {
+            value = atoi(input);
+            break;
+        } 
+        else 
+        {
+            printf("Invalid input. Please enter a valid number: ");
+        }
+    }
+
+    return value;
+}
+
+int isNumeric(const char *str) 
+{
+    while (*str)
+    {
+        if (*str < '0' || *str > '9')
+            return 0;
+        str++;
+    }
+    return 1;
 }
