@@ -65,10 +65,10 @@ void test_checkForExit()
 
 }
 
-int main(){
+int main()
+{
     test_dice();
     test_statsCheck();
     test_getRandMonster();
     test_checkForExit();
-
 }

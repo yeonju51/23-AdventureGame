@@ -9,6 +9,7 @@
 
 void choosePath()
 {
+
     title("Entering the Dungeon");
     printf("You stand at the entrance of the dungeon. A big sign proclaims, There will be cake!\n");
     printf("You can go forward,left or right.\n");
@@ -24,10 +25,23 @@ void choosePath()
         printf("2. Go left\n");
         printf("3. Go right\n");
         printf("Please enter choiche 1-3.\n");
+        // 사용자로부터 숫자 입력 받기
+        int choice = getIntInput();
 
+        // 선택이 올바른지 확인
+        if (choice >= 1 && choice <= 3)
+        {
+            path = choice;
+            break; // 올바른 입력이면 루프 종료
+        }
+        else
+        {
+            printf("Invalid Value: choose path again.\n");
+        }
         // 종료
         printf("If you want to exit the game, type 'f' and press enter.\n");
-        scanf("%s", str, STR_SIZE);
+        fgets(str, STR_SIZE, stdin);
+
         checkForExit(str);
 
         val = atoi(str);
@@ -44,6 +58,7 @@ void choosePath()
             path = val;
         }
     }
+
 
     switch (path)
     {
@@ -90,7 +105,7 @@ void choosePath()
                 
                 // 종료
                 printf("If you want to exit the game, type 'f' and press enter.\n");
-                scanf("%s", str, STR_SIZE);
+                fgets(str, STR_SIZE, stdin);
                 checkForExit(str);
 
                 val = atoi(str);
@@ -168,7 +183,7 @@ void choosePath()
 
                 // 종료
                 printf("If you want to exit the game, type 'f' and press enter.\n");
-                scanf("%s", str, STR_SIZE);
+                fgets(str, STR_SIZE, stdin);
                 checkForExit(str); 
 
                 val = atoi(str);
@@ -204,20 +219,29 @@ void choosePath()
                     break;
             }
             break;
-        };
+        }; 
+        
+
+
 }
 
 void encounterMonster()
 {
+
     title("Fight against monsters");
 
     // 난이도 선택
     printf("You venture deeper in to the dungeon.\n");
     printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
+
     // 난이도 입력
-    scanf("%s", str, STR_SIZE);
+
+    fgets(str, STR_SIZE, stdin);
+
     int level = atoi(str);
+
+
 
     char* monster[MONSTER_COUNT] = { "thanos", "joker", "orc", "goblin", "mountain troll", "swarm of bats" }; // 몬스터 종류(난이도 세분화를 위해 thanos, joker 추가)
     int monsterStr[MONSTER_COUNT] = { 6, 5, 3, 3, 2, 1 }; // 몬스터 힘

@@ -31,7 +31,7 @@ void initPlayerStats()
 
             // 종료
             printf("If you want to exit the game, type 'f' and press enter.\n"); 
-            scanf_s("%s", str, STR_SIZE);
+            fgets(str, STR_SIZE, stdin);
             checkForExit(str);
 
             val = atoi(str);
