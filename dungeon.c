@@ -9,13 +9,8 @@
 
 void choosePath()
 {
-    // 문자열 버퍼 할당
-    char* str = (char*)malloc(STR_SIZE * sizeof(char));
-    if (str == NULL) 
-    {
-        fprintf(stderr, "Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
-    }
+    char* str = allocateStringBuffer();
+
     title("Entering the Dungeon");
     printf("You stand at the entrance of the dungeon. A big sign proclaims, There will be cake!\n");
     printf("You can go forward,left or right.\n");
@@ -64,8 +59,6 @@ void choosePath()
         }
     }
 
-    // 메모리 해제
-    free(str);
 
     switch (path)
     {
@@ -226,17 +219,15 @@ void choosePath()
                     break;
             }
             break;
-        };
+        }; 
+        
+    freeStringBuffer(str);
+
+
 }
 
 void encounterMonster()
 {
-    // 문자열 버퍼 할당
-    char* str = (char*)malloc(STR_SIZE * sizeof(char));
-    if (str == NULL) {
-        fprintf(stderr, "Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
-    }
 
     title("Fight against monsters");
 
@@ -244,14 +235,15 @@ void encounterMonster()
     printf("You venture deeper in to the dungeon.\n");
     printf("Please select the level of the monsters!\n1.Hard   2.Normal   3.Easy\n");
 
+    char* str = allocateStringBuffer();
+
     // 난이도 입력
 
     fgets(str, STR_SIZE, stdin);
 
     int level = atoi(str);
 
-    // 메모리 해제
-    free(str);
+
 
     char* monster[MONSTER_COUNT] = { "thanos", "joker", "orc", "goblin", "mountain troll", "swarm of bats" }; // 몬스터 종류(난이도 세분화를 위해 thanos, joker 추가)
     int monsterStr[MONSTER_COUNT] = { 6, 5, 3, 3, 2, 1 }; // 몬스터 힘
@@ -317,6 +309,7 @@ void encounterMonster()
         }
 
     };
+    freeStringBuffer(str);
 
     printf("\nYou managed to slay the %s.\n", encounterMonster);
     printf("You slayed the monster but to no avail as there is no cake to be had.\n");
