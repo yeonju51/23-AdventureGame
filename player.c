@@ -21,7 +21,18 @@ void initPlayerStats()
 
     int statPoints = 10; // 남은 스텟 포인트
 
-    printf("You have %d points to allocate for %s, %s and %s.\n", statPoints, playerValues[0], playerValues[1],playerValues[2]);
+    printf("You have %d points to allocate for", statPoints);
+    for (int i = 0; i < PLAYER_STATS_COUNT; i++)
+    {
+        if (i == PLAYER_STATS_COUNT - 1)
+        {
+            printf(" %s.\n", playerValues[i]);
+        }
+        else
+        {
+            printf(" %s,", playerValues[i]);
+        }
+    }
 
     for (int i = 0; i < PLAYER_STATS_COUNT; i++)
     {
