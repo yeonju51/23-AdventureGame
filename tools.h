@@ -11,9 +11,5 @@ void checkForExit(const char* check);
 
 void title(const char* title);
 
-int getIntInput();
-
-int isNumeric(const char *str);
-
 
 #endif // TOOLS_H
