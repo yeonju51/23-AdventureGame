@@ -49,18 +49,20 @@ void test_getRandMonster()
 
 
 // checkForExit 함수 테스트
+
 void test_checkForExit() 
 {
-
-    // 'f' 또는 'F' 이외의 문자가 입력된 경우
-    char input1[] = "a";
-    checkForExit(input1); // 함수 실행
-
-    printf("checkForExit function test 성공!\n");
-
-    // 'f'가 입력된 경우
-    char input2[] = "f";
-    checkForExit(input2); // 함수 실행
+    printf("***********************************\n");
+    // 다른 문자가 입력된 경우
+    printf("'F'나 'f'가 아닌 경우 \n");
+    checkForExit("x");
+    // 여기까지 실행됐으면 테스트 통과
+    printf("checkForExit function test 성공 'x'!\n");
+    // 'f' 또는 'F'가 입력된 경우
+    printf("'F'나 'f'인 경우 \n");
+    checkForExit("f");
+    // 'f', 'F'이면 종료되므로 아래 print문이 나오면 안된다.
+    printf("checkForExit function test 성공 'F'!\n");
 
 
 }
