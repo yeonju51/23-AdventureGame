@@ -45,10 +45,6 @@ void test_initPlayerStats()
     }
     stdin = fp; // 표준 입력을 모의 입력으로 설정
 
-    playerStatsValues[0] = "Strength";
-    playerStatsValues[1] = "Agility";
-    playerStatsValues[2] = "Intelligence";
-
     initPlayerStats();
 
     fclose(fp);
