@@ -74,39 +74,3 @@ void title(const char* title)
 }
 
 
-int getIntInput() 
-{
-    char input[STR_SIZE];
-    int value;
-
-    while (1) 
-    {
-        fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = '\0'; 
-
-        // 문자열이 숫자로 변환 가능한지 확인
-        if (isNumeric(input)) 
-        {
-            value = atoi(input);
-            break;
-        } 
-        else 
-        {
-            printf("Invalid input. Please enter a valid number: ");
-        }
-    }
-
-    return value;
-}
-
-int isNumeric(const char *str) 
-{
-    while (*str)
-    {
-        if (*str < '0' || *str > '9')
-            return 0;
-        str++;
-    }
-    return 1;
-}
-

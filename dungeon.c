@@ -25,20 +25,7 @@ void choosePath()
         printf("2. Go left\n");
         printf("3. Go right\n");
         printf("Please enter choiche 1-3.\n");
-        // 사용자로부터 숫자 입력 받기
-        int choice = getIntInput();
-
-        // 선택이 올바른지 확인
-        if (choice >= 1 && choice <= 3)
-        {
-            path = choice;
-            break; // 올바른 입력이면 루프 종료
-        }
-        else
-        {
-            printf("Invalid Value: choose path again.\n");
-        }
-        // 종료
+  
         printf("If you want to exit the game, type 'f' and press enter.\n");
         fgets(str, STR_SIZE, stdin);
 
