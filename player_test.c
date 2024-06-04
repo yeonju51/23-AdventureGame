@@ -50,7 +50,7 @@ void test_initPlayerStats()
     fclose(fp);
 
     // 테스트 결과에 따라 출력
-    if (playerStatsName[0] == 5 && playerStatsName[1] == 3 && playerStatsName[2] == 2) 
+    if (player1.stats[0] == 5 && player1.stats[1] == 3 && player1.stats[2] == 2) 
     {
         printf("test_initPlayerStats PASSED\n");
     } 
